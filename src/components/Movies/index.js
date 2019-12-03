@@ -54,7 +54,7 @@ class Movies extends Component {
                         </div>  
                     )
                 }
-            </div>
+            </div> 
         )
     }
 }
