@@ -2,14 +2,15 @@ const express = require('express')
 const path = require('path')
 
 const app = express()
-require('./config/db');
 const PORT = process.env.PORT || 8000
+require('./config/db')
 
-const usersController = require('./controllers/users.js');
+const userController = require('./controllers/users')
 
 app.use(express.static(path.join(__dirname, 'build')))
+app.use(express.json())
 
-app.use('/auth', usersController)
+app.use('/auth', userController)
 
 app.get('/api/v1/hello', (req, res) => {
     res.json({ message: 'world' })
