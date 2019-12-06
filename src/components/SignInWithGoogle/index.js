@@ -8,9 +8,11 @@ class SignInGoogleBase extends Component {
     onSubmit = event => {
         doSignInWithGoogle()
         .then(async socialAuthUser => {
+            console.log(socialAuthUser.user)
             const user = {
                 displayName: socialAuthUser.user.displayName,
-                email: socialAuthUser.user.email
+                email: socialAuthUser.user.email,
+                imgUrl: socialAuthUser.user.photoURL
             }
             const createUser = await fetch('/auth/users', {
                 method: 'POST',

@@ -1,5 +1,7 @@
 import app from 'firebase/app'
 import 'firebase/auth'
+import 'firebase/storage'
+
 
 const config = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -13,12 +15,34 @@ const config = {
 const firebase = app.initializeApp(config)
 const auth = firebase.auth()
 const googleProvider = new app.auth.GoogleAuthProvider()
+const storage = firebase.storage()
+const storageRef = storage.ref()
 
 const doSignInWithGoogle = () => {
     return auth.signInWithPopup(googleProvider)
 }
 
+const doAddFile = file =>
+    storageRef
+        .child(`profilePics/${file.name}`)
+        .put(file)
+
+const doCreateUserWithEmailAndPassword = (email, password) =>
+    auth.createUserWithEmailAndPassword(email, password);
+
+const doSignOut = () => auth.signOut()
+
+// const doSignInWithEmailAndPassword = (email, password) =>
+//     this.auth.signInWithEmailAndPassword(email, password);
+
+
+
+
 export {
     firebase,
-    doSignInWithGoogle
+    doSignInWithGoogle,
+    doAddFile,
+    doCreateUserWithEmailAndPassword,
+    auth,
+    doSignOut
 }

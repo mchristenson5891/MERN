@@ -16,11 +16,10 @@ router.post('/users', async (req, res) => {
     }
 });
 
-router.put('/users/:userId', (req, res) => {
-   
-    return console.log(
-        `PUT HTTP method on user/${req.params.userId} resource`,
-    );
+router.put('/users/:userId', async (req, res) => {
+   console.log(req.body)
+   const updatedUser = await User.findByIdAndUpdate(req.params.userId, req.body, {new: true})
+   res.json(updatedUser)
 });
 
 router.delete('/users/:userId', (req, res) => {
